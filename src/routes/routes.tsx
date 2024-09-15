@@ -1,27 +1,15 @@
-import { ReactNode } from "react";
 import DefaultLayout from "@/layouts/Default";
-import AuthMiddleware from "@/middlewares/AuthMiddleware";
-import GlobalMiddleware from "@/middlewares/GlobalMiddleware";
+import Home from "@/pages/Home";
+import { Route, Routes } from "react-router-dom";
 
-export interface IRoute {
-  path: string;
-  layout?: () => ReactNode;
-  middleware?: () => ReactNode;
-  element?: () => ReactNode;
-  pages?: IRoute[];
-}
+const WebRouter = () => {
+  return (
+    <Routes>
+      <Route element={<DefaultLayout />}>
+        <Route path="/" element={<Home />} />
+      </Route>
+    </Routes>
+  );
+};
 
-export const routes: IRoute[] = [
-  {
-    path: "/",
-    middleware: () => <GlobalMiddleware />,
-    pages: [
-      {
-        path: "/",
-        middleware: () => <AuthMiddleware />,
-        layout: () => <DefaultLayout />,
-        pages: [],
-      },
-    ],
-  },
-];
+export default WebRouter;
